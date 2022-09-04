@@ -179,7 +179,7 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, no
                 "value": wind_dir,
                 "color": get_color()
             },
-            "note_ch": {
+            "keCheng": {
                 "value": keCheng,
                 "color": get_color()
             },          
