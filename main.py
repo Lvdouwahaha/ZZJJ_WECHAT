@@ -123,6 +123,24 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, no
     day = localtime().tm_mday
     today = datetime.date(datetime(year=year, month=month, day=day))
     week = week_list[today.isoweekday() % 7]
+    # 获取今日课程
+    if week == "星期日":
+        keCheng = config["zhou7"]
+    elif week == "星期一":
+        keCheng = config["zhou1"]
+    elif week == "星期二":
+        keCheng = config["zhou2"]        
+    elif week == "星期三":
+        keCheng = config["zhou3"]        
+    elif week == "星期四":
+        keCheng = config["zhou4"]        
+    elif week == "星期五":
+        keCheng = config["zhou5"]        
+    elif week == "星期六":
+        keCheng = config["zhou6"]    
+    else:
+        keCheng = "课程错误"
+        
     # 获取在一起的日子的日期格式
     love_year = int(config["love_date"].split("-")[0])
     love_month = int(config["love_date"].split("-")[1])
@@ -172,14 +190,18 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, no
             "note_ch": {
                 "value": note_ch,
                 "color": get_color()
-            }
+            },
+            "note_ch": {
+                "value": keCheng,
+                "color": get_color()
+            }            
         }
     }
     for key, value in birthdays.items():
         # 获取距离下次生日的时间
         birth_day = get_birthday(value["birthday"], year, today)
         if birth_day == 0:
-            birthday_data = "今天{}生日哦，祝{}生日快乐！".format(value["name"], value["name"])
+            birthday_data = "今天{}生日哦，祝我家{}生日快乐！".format(value["name"], value["name"])
         else:
             birthday_data = "距离{}的生日还有{}天".format(value["name"], birth_day)
         # 将生日数据插入data
